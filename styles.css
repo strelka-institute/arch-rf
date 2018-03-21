@@ -1,38 +1,97 @@
 html, body {
-  height: 100%;
   padding: 0;
   margin: 0;
 }
 
-.blue {
-  border: 10px solid blue;
+* {
+  box-sizing: border-box;
 }
 
-.turqoise {
-  border: 10px solid turquoise;
+h1 {
+  font-family: Soyuz Grotesk, sans-serif;
+  font-size: 170px;
+  letter-spacing: 3.17px;
+  margin: 0 auto;
+  width: 1170px;
 }
 
-.green {
-  border: 10px solid green;
-}
-
-.bordeaux {
-  border: 10px solid cyan;
-}
-
-#pinContainer {
-  width: 100%;
+#plan {
+  width: 100vw;
   height: 100vh;
+}
+
+.room {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: white;
+  padding: 50px 40px;
+}
+
+.sub-room {
+  width: 100%;
+  padding: 0 24px;
   overflow: hidden;
 }
 
-.panel {
-  height: 100vh;
+.sub-room-cont {
   width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.header-center {
+  text-align: center;
+}
+
+.header-right {
+  text-align: right;
+}
+
+.room-1 {
+  height: 300%;
+}
+
+.room-1 .sub-room {
+  height: calc(33.3% - 50px);
+}
+
+.sub-room-2 {
+  margin-top: -24px;
+  transform: scale(-1, -1);
+}
+
+.sub-room-3 {
+  margin-top: 50px;
+}
+
+.hint {
+  width: 100px;
+  height: 100px;
+  position: fixed;
+  bottom: 0;
+  left: calc(50% - 50px);
+  border: 1px solid black;
+}
+
+.room-door {
   position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  background-color: white;
+  width: 100%;
+  padding-bottom: 50%;
+  top: calc(100% - 24px);
+  left: -50%;
+  border-bottom-left-radius: 9999px;
+  border-bottom-right-radius: 9999px;
+  border: 2px solid transparent;
+  border-top: 24px solid transparent;
+  transform-origin: 50% 24px;
+}
+
+.room-door-border {
+  border-color: black;
+}
+
+.room-door-blend {
+  background-color: red;
+  mix-blend-mode: lighten;
 }
