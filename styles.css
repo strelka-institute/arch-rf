@@ -8,14 +8,6 @@ html, body {
   box-sizing: border-box;
 }
 
-h1 {
-  font-family: Soyuz Grotesk, sans-serif;
-  font-size: 170px;
-  letter-spacing: 3.17px;
-  width: 1170px;
-  margin: 0;
-}
-
 #plan {
   width: 100vw;
   height: 100vh;
@@ -32,7 +24,7 @@ h1 {
 .room-1-header {
   margin: 0 auto;
   display: block;
-  transform: translateY(200px);
+  transform: translateY(100px);
 }
 
 .room-2-header {
@@ -103,13 +95,14 @@ h1 {
 
 .sub-room-4 .sub-room-cont {
   display: flex;
+  justify-content: flex-end;
   background-color: white;
 }
 
 .hint {
   position: fixed;
   bottom: 100px;
-  left: calc(50% - 42px);
+  left: calc(50% - 2.5vw);
   opacity: 0;
   z-index: 1;
 }
@@ -145,11 +138,6 @@ h1 {
   border-color: #1e1e1e;
 }
 
-.room-door-blend {
-  background-color: red;
-  mix-blend-mode: lighten;
-}
-
 .room-door-3 {
   left: calc(110px - 100vh);
   top: 0;
@@ -158,7 +146,7 @@ h1 {
 }
 
 .room-4-header {
-  transform: translateX(104px);
+  margin-right: 40px;
 }
 
 .room-5-cont {
@@ -182,7 +170,6 @@ h1 {
 
 .room-6-cont {
   height: 100%;
-  background-color: #1e1e1e;
   padding: 60px 40px 80px;
   display: flex;
   flex-direction: column;
@@ -204,6 +191,21 @@ h1 {
   justify-content: space-between;
 }
 
+.room-6 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1e1e1e;
+  background-clip: content-box;
+}
+
+.already-subscribed {
+  text-align: center;
+  display: none;
+  color: white;
+  font-size: 70px !important;
+}
+
 .room-6 h2 {
   font-family: Soyuz Grotesk, sans-serif;
   font-size: 40px;
@@ -219,6 +221,10 @@ h1 {
   margin: 0 0 0 40px;
 }
 
+#mc-embedded-subscribe-form {
+  position: relative;
+}
+
 #mc_embed_signup {
   width: 100%;
 }
@@ -230,7 +236,7 @@ h1 {
   height: 70px;
 }
 
-#mce-EMAIL {
+.email {
   flex-grow: 1;
   border: 0;
   background-color: #1e1e1e;
@@ -240,6 +246,14 @@ h1 {
   color: white;
   padding-left: 5px;
   border-bottom: 1px solid white;
+  position: relative;
+}
+
+input {
+  border: 0;
+  border-radius: 0;
+  outline: 0;
+  -webkit-appearance: none;
 }
 
 input:focus {
@@ -263,6 +277,105 @@ input:focus {
   cursor: pointer;
   color: #1e1e1e;
   pointer-events: auto;
+}
+
+.email-with-error {
+  color: #FF554F;
+  border-bottom: 1px solid #FF554F;
+}
+
+.error {
+  content: 'введите правильный адрес';
+  color: #898989;
+  display: none;
+  position: absolute;
+  left: 0;
+  bottom: -20px;
+}
+
+.orientation-warning {
+  display: none;
+}
+
+@media (max-width: 450px) {
+  #plan {
+    display: none;
+  }
+
+  .hint {
+    display: none;
+  }
+
+  .room-6 {
+    padding: 0;
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .room-6-cont {
+    width: 100%;
+    padding: 20px 30px;
+  }
+
+  .room-6 h2 {
+    font-size: 34px;
+    letter-spacing: 2.5px;
+  }
+
+  .room-6 p {
+    margin-left: 0;
+    width: 100%;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0.7px;
+    margin-top: 125px;
+  }
+
+  .room-6-cont-inner {
+    width: 100%;
+    justify-content: flex-start;
+    max-height: auto;
+  }
+
+  .room-6-cont-inner-top {
+    flex-direction: column;
+  }
+
+  #mc_embed_signup_scroll {
+    flex-direction: column;
+    height: auto;
+    margin-top: 70px;
+  }
+
+  .email, .button, .error {
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 0.28px;
+  }
+
+  .button {
+    margin-top: 35px;
+    margin-left: 0;
+    height: 40px;
+  }
+
+  .error {
+    bottom: 50px;
+  }
+
+  .orientation-warning {
+    position: fixed;
+    bottom: 30px;
+    text-align: center;
+    display: block;
+  }
+
+  .orientation-warning p {
+    width: 216px !important;
+    color: white;
+    margin: 20px 0 0;
+  }
 }
 
 /*bp - 1120*/

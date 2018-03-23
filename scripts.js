@@ -1,24 +1,26 @@
 const MAILCHIMP_URL = 'https://strelkainstitute.us1.list-manage.com/subscribe/post-json?u=267711a1297299a2b8d0992a6&amp;id=d685a30a47&c=?'
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const ALREADY_SUBSCRIBED_COOKIE = 'ALREADY_SUBSCRIBED_COOKIE'
 
 let downtime = 0
 let isShowingHint = false
+let formInited = false
 
 document.addEventListener('DOMContentLoaded', event => {
   init()
 })
 
+window.addEventListener('orientationchange', () => {
+  init()
+})
+
 
 const showHint = () => {
-  const hint = document.querySelector('.hint')
-  hint.classList.add('hint-visible')
+  $('.hint').addClass('hint-visible')
   isShowingHint = true
 }
 
 const hideHint = () => {
-  const hint = document.querySelector('.hint')
-  hint.classList.remove('hint-visible')
+  $('.hint').removeClass('hint-visible')
   isShowingHint = false
 }
 
@@ -33,7 +35,6 @@ const handleSubmit = (e) => {
   const email = $('.email')[0].value
   if (validateEmail(email)) {
     const inputs = $('#mc-embedded-subscribe-form input')
-    console.log('SEND!')
     inputs.attr('disabled', true)
     $.ajax({
         type        : 'GET',
@@ -42,15 +43,22 @@ const handleSubmit = (e) => {
         cache       : false,
         dataType    : 'json',
         contentType: "application/json; charset=utf-8",
-        error       : function(err) { console.log('ERR:', err) },
-        success     : function(data) {
+        success     : (data) => {
           inputs.attr('disabled', false)
           if (data.result === "success") {
-            console.log(data)
-            console.log(Cookies)
-            Cookies.set(ALREADY_SUBSCRIBED_COOKIE, 'true')
+            $('.room-6-cont').hide()
+            $('.already-subscribed').show()
+            $('.already-subscribed').text('спасибо!')
+            $('.orientation-warning').hide()
           } else {
-            console.log(data)
+            if (data.msg.indexOf('already subscribed') !== -1) {
+              $('.error').text('вы уже подписаны')
+              $('.error').show()
+            } else {
+              $('.email').addClass('email-with-error')
+              $('.error').text('введите правильный адрес')
+              $('.error').show()
+            }
           }
         }
     });
@@ -69,7 +77,7 @@ const initScrollMagic = () => {
     .to("#plan .room-1", 1, { y: "-100%", ease: Linear.easeNone }, 3.5)
     .fromTo("#plan .room-5", 1, { y: "100%" }, { y: "0%", ease: Linear.easeNone }, 3.5)
     .to("#plan .room-5", 1, { y: "-100%", ease: Linear.easeNone }, 4.5)
-    .fromTo("#plan .room-6", 1, { y: "100%" }, { y: "0%", ease: Linear.easeNone }, 4.5)
+    .fromTo("#plan .room-6", 1, { y: "100%", opacity: 0 }, { y: "0%", opacity: 1, ease: Linear.easeNone }, 4.5)
 
   const scene = new ScrollMagic.Scene({
       triggerElement: "#plan",
@@ -102,32 +110,41 @@ const initHinting = (wipeAnimation) => {
 }
 
 const handleEmailChange = (e) => {
-  console.log(e)
+  $('.email').removeClass('email-with-error')
+  $('.error').hide()
   const value = e.target.value
   const isValid = validateEmail(value)
-  console.log(value, isValid)
-  if (isValid) {
-    document.querySelector('.button').classList.add('active-button')
-  } else {
-    document.querySelector('.button').classList.remove('active-button')
-  }
+  $('.button').toggleClass('active-button', isValid)
 }
 
 const initForm = () => {
-  const isAlreadySubscribed = Cookies.get(ALREADY_SUBSCRIBED_COOKIE)
-  console.log(isAlreadySubscribed)
+  if (!formInited) {
+    console.log('init form!')
+    const subscribeForm = document.querySelector('#mc-embedded-subscribe-form')
+    subscribeForm.addEventListener('submit', handleSubmit)
 
-  const subscribeForm = document.querySelector('#mc-embedded-subscribe-form')
-  subscribeForm.addEventListener('submit', handleSubmit)
+    const emailInput = document.querySelector('.email')
+    emailInput.addEventListener('input', handleEmailChange)
 
-  const emailInput = document.querySelector('.email')
-  emailInput.addEventListener('input', handleEmailChange)
+    formInited = true
+  }
 }
 
+const isDesktop = () => {
+  const width = (window.innerWidth > 0) ? window.innerWidth : screen.width
+  return width > 450
+}
 
-const init = () => {
+const initDesktop = () => {
+  console.log('init desk')
   const wipeAnimation = initScrollMagic()
   initHinting(wipeAnimation)
-  initForm()
   showHint()
+}
+
+const init = () => {
+  if (isDesktop()) {
+    initDesktop()
+  }
+  initForm()
 }
