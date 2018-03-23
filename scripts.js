@@ -4,6 +4,7 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
 let downtime = 0
 let isShowingHint = false
 let formInited = false
+let mobileFormInited = false
 
 document.addEventListener('DOMContentLoaded', event => {
   init()
@@ -30,11 +31,11 @@ const validateEmail = (email) => {
 
 const handleSubmit = (e) => {
   e.preventDefault()
-  const form = $('#mc-embedded-subscribe-form')
+  const form = $('#plan #mc-embedded-subscribe-form')
   const data = form.serialize()
-  const email = $('.email')[0].value
+  const email = $('#plan .email')[0].value
   if (validateEmail(email)) {
-    const inputs = $('#mc-embedded-subscribe-form input')
+    const inputs = $('#plan #mc-embedded-subscribe-form input')
     inputs.attr('disabled', true)
     $.ajax({
         type        : 'GET',
@@ -46,18 +47,56 @@ const handleSubmit = (e) => {
         success     : (data) => {
           inputs.attr('disabled', false)
           if (data.result === "success") {
-            $('.room-6-cont').hide()
-            $('.already-subscribed').show()
-            $('.already-subscribed').text('спасибо!')
-            $('.orientation-warning').hide()
+            $('#plan .room-6-cont').hide()
+            $('#plan .already-subscribed').show()
+            $('#plan .already-subscribed').text('спасибо!')
+            $('#plan .orientation-warning').hide()
           } else {
             if (data.msg.indexOf('already subscribed') !== -1) {
-              $('.error').text('вы уже подписаны')
-              $('.error').show()
+              $('#plan .error').text('вы уже подписаны')
+              $('#plan .error').show()
             } else {
-              $('.email').addClass('email-with-error')
-              $('.error').text('введите правильный адрес')
-              $('.error').show()
+              $('#plan .email').addClass('email-with-error')
+              $('#plan .error').text('введите правильный адрес')
+              $('#plan .error').show()
+            }
+          }
+        }
+    });
+  }
+}
+
+
+const handleMobileSubmit = (e) => {
+  e.preventDefault()
+  const form = $('.room-6-mob #mc-embedded-subscribe-form')
+  const data = form.serialize()
+  const email = $('.room-6-mob .email')[0].value
+  if (validateEmail(email)) {
+    const inputs = $('.room-6-mob #mc-embedded-subscribe-form input')
+    inputs.attr('disabled', true)
+    $.ajax({
+        type        : 'GET',
+        url         : MAILCHIMP_URL,
+        data        : data,
+        cache       : false,
+        dataType    : 'json',
+        contentType: "application/json; charset=utf-8",
+        success     : (data) => {
+          inputs.attr('disabled', false)
+          if (data.result === "success") {
+            $('.room-6-mob .room-6-cont').hide()
+            $('.room-6-mob .already-subscribed').show()
+            $('.room-6-mob .already-subscribed').text('спасибо!')
+            $('.room-6-mob .orientation-warning').hide()
+          } else {
+            if (data.msg.indexOf('already subscribed') !== -1) {
+              $('.room-6-mob .error').text('вы уже подписаны')
+              $('.room-6-mob .error').show()
+            } else {
+              $('.room-6-mob .email').addClass('email-with-error')
+              $('.room-6-mob .error').text('введите правильный адрес')
+              $('.room-6-mob .error').show()
             }
           }
         }
@@ -110,23 +149,44 @@ const initHinting = (wipeAnimation) => {
 }
 
 const handleEmailChange = (e) => {
-  $('.email').removeClass('email-with-error')
-  $('.error').hide()
+  $('#plan .email').removeClass('email-with-error')
+  $('#plan .error').hide()
   const value = e.target.value
   const isValid = validateEmail(value)
-  $('.button').toggleClass('active-button', isValid)
+  $('#plan .button').toggleClass('active-button', isValid)
+}
+
+const handleMobileEmailChange = (e) => {
+  $('.room-6-mob .email').removeClass('email-with-error')
+  $('.room-6-mob .error').hide()
+  const value = e.target.value
+  const isValid = validateEmail(value)
+  $('.room-6-mob .button').toggleClass('active-button', isValid)
 }
 
 const initForm = () => {
   if (!formInited) {
     console.log('init form!')
-    const subscribeForm = document.querySelector('#mc-embedded-subscribe-form')
+    const subscribeForm = document.querySelector('#plan #mc-embedded-subscribe-form')
     subscribeForm.addEventListener('submit', handleSubmit)
 
-    const emailInput = document.querySelector('.email')
+    const emailInput = document.querySelector('#plan .email')
     emailInput.addEventListener('input', handleEmailChange)
 
     formInited = true
+  }
+}
+
+const initMobileForm = () => {
+  if (!mobileFormInited) {
+    console.log('init mobile form!')
+    const subscribeForm = document.querySelector('.room-6-mob #mc-embedded-subscribe-form')
+    subscribeForm.addEventListener('submit', handleMobileSubmit)
+
+    const emailInput = document.querySelector('.room-6-mob .email')
+    emailInput.addEventListener('input', handleMobileEmailChange)
+
+    mobileFormInited = true
   }
 }
 
@@ -145,6 +205,8 @@ const initDesktop = () => {
 const init = () => {
   if (isDesktop()) {
     initDesktop()
+    initForm()
+  } else {
+    initMobileForm()
   }
-  initForm()
 }
