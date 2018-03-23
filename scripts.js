@@ -7,12 +7,12 @@ let formInited = false
 let mobileFormInited = false
 
 document.addEventListener('DOMContentLoaded', event => {
+  window.scrollTo(0, 0)
   init()
 })
 
 window.addEventListener('orientationchange', () => {
-  init()
-  window.scrollTo(0, 0)
+  location.reload()
 })
 
 
@@ -109,20 +109,20 @@ const initScrollMagic = () => {
   const controller = new ScrollMagic.Controller()
 
   const wipeAnimation = new TimelineMax()
-    .to("#plan .room-door-1", 0.5, { rotation: -90, ease: Linear.easeNone }, 0)
-    .to("#plan .room-door-2", 0.5, { rotation: -90, x: "-1.5px", ease: Linear.easeNone }, 1)
-    .fromTo("#plan .room-1", 2, { y: "0%" }, { y: "-66%", ease: Linear.easeNone }, 0.5)
-    .to("#plan .room-1", 1, { x: "-100%", ease: Linear.easeNone }, 2.5)
-    .fromTo("#plan .room-door-3", 0.5, { rotation: 90 },  { rotation: 0, x: "-1.5px", ease: Linear.easeNone }, 3)
-    .to("#plan .room-1", 1, { y: "-100%", ease: Linear.easeNone }, 3.5)
-    .fromTo("#plan .room-5", 1, { y: "100%" }, { y: "0%", ease: Linear.easeNone }, 3.5)
-    .to("#plan .room-5", 1, { y: "-100%", ease: Linear.easeNone }, 4.5)
-    .fromTo("#plan .room-6", 1, { y: "100%", opacity: 0 }, { y: "0%", opacity: 1, ease: Linear.easeNone }, 4.5)
+    .to("#plan .room-door-1", 1, { rotation: -90, ease: Linear.easeNone }, 0)
+    .to("#plan .room-door-2", 1, { rotation: -90, x: "-1.5px", ease: Linear.easeNone }, 2)
+    .fromTo("#plan .room-1", 4, { y: "0%" }, { y: "-66%", ease: Linear.easeNone }, 1)
+    .to("#plan .room-1", 2, { x: "-100%", ease: Linear.easeNone }, 5)
+    .fromTo("#plan .room-door-3", 1, { rotation: 90 },  { rotation: 0, x: "-1.5px", ease: Linear.easeNone }, 6)
+    .to("#plan .room-1", 2, { y: "-100%", ease: Linear.easeNone }, 7)
+    .fromTo("#plan .room-5", 2, { y: "100%" }, { y: "0%", ease: Linear.easeNone }, 7)
+    .to("#plan .room-5", 2, { y: "-100%", ease: Linear.easeNone }, 9)
+    .fromTo("#plan .room-6", 2, { y: "100%", opacity: 0 }, { y: "0%", opacity: 1, ease: Linear.easeNone }, 9)
 
   const scene = new ScrollMagic.Scene({
       triggerElement: "#plan",
       triggerHook: "onLeave",
-      duration: "400%"
+      duration: "800%"
     })
     .setPin("#plan")
     .setTween(wipeAnimation)
