@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', event => {
 
 window.addEventListener('orientationchange', () => {
   init()
+  window.scrollTo(0, 0)
 })
 
 
