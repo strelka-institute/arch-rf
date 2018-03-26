@@ -167,7 +167,6 @@ const handleMobileEmailChange = (e) => {
 
 const initForm = () => {
   if (!formInited) {
-    console.log('init form!')
     const subscribeForm = document.querySelector('#plan #mc-embedded-subscribe-form')
     subscribeForm.addEventListener('submit', handleSubmit)
 
@@ -180,7 +179,6 @@ const initForm = () => {
 
 const initMobileForm = () => {
   if (!mobileFormInited) {
-    console.log('init mobile form!')
     const subscribeForm = document.querySelector('.room-6-mob #mc-embedded-subscribe-form')
     subscribeForm.addEventListener('submit', handleMobileSubmit)
 
@@ -197,7 +195,6 @@ const isDesktop = () => {
 }
 
 const initDesktop = () => {
-  console.log('init desk')
   const wipeAnimation = initScrollMagic()
   initHinting(wipeAnimation)
   showHint()
