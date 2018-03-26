@@ -37,7 +37,7 @@ html, body {
 
 .sub-room {
   width: 100%;
-  padding: 0 24px;
+  padding: 0 1.666vw;
   overflow: hidden;
 }
 
@@ -56,8 +56,8 @@ html, body {
 }
 
 .sub-room-2 {
-  height: calc(33.3% + 50px + 24px);
-  margin-top: -24px;
+  height: calc(33.3% + 50px + 1.666vw);
+  margin-top: -1.666vw;
   transform: scale(-1, -1);
 }
 
@@ -72,12 +72,12 @@ html, body {
 .sub-room-3 {
   min-width: calc(100vw - 40px);
   position: relative;
-  padding: 0 64px 0 0;
+  padding: 0 calc(40px + 1.666vw) 0 0;
 }
 
 .sub-rooms-3-4 .sub-room-cont {
    position: relative;
-   padding: 74px 0 0;
+   padding: calc(50px + 1.666vw) 0 0;
 }
 
 .sub-room-3 .sub-room-cont::before {
@@ -85,16 +85,16 @@ html, body {
   content: ' ';
   position: absolute;
   width: 100%;
-  height: 24px;
+  height: 1.666vw;
   background-color: #1e1e1e;
   top: 0;
 }
 
 .sub-room-4 {
-  min-width: calc(100vw - 40px + 64px);
+  min-width: calc(100vw + 1.666vw);
   padding: 0;
-  transform: translateX(-64px);
-  border-right: 24px solid #1e1e1e;
+  transform: translateX(calc(-40px - 1.666vw));
+  border-right: 1.666vw solid #1e1e1e;
 }
 
 .sub-room-4 .sub-room-cont {
@@ -131,13 +131,13 @@ html, body {
   position: absolute;
   width: 100%;
   padding-bottom: 50%;
-  top: calc(100% - 24px);
+  top: calc(100% - 1.666vw);
   left: -50%;
   border-bottom-left-radius: 9999px;
   border-bottom-right-radius: 9999px;
   border: 2px solid transparent;
-  border-top: 24px solid transparent;
-  transform-origin: 50% 24px;
+  border-top: 1.666vw solid transparent;
+  transform-origin: 50% 1.666vw;
 }
 
 .room-door-border {
@@ -165,7 +165,7 @@ html, body {
 .room-5-cont {
   width: 100%;
   height: 100%;
-  padding-right: 64px;
+  padding-right: calc(40px + 1.666vw);
   display: flex;
   justify-content: flex-end;
 }
@@ -175,9 +175,9 @@ html, body {
   position: absolute;
   display: block;
   right: 40px;
-  width: 24px;
+  width: 1.666vw;
   top: 0;
-  height: 100%;
+  height: calc(100% - 6vh);
   background-color: #1e1e1e;
 }
 
@@ -227,7 +227,7 @@ html, body {
 }
 
 .room-6 p {
-  font-size: 24px;
+  font-size: 1.666vw;
   line-height: 35px;
   letter-spacing: 1.2px;
   max-width: 470px;
@@ -274,8 +274,8 @@ input:focus {
 }
 
 .button {
-  font-size: 24px;
-  line-height: 24px;
+  font-size: 1.666vw;
+  line-height: 1.666vw;
   letter-spacing: 1.2px;
   color: white;
   border: 0;
@@ -341,13 +341,13 @@ input:focus {
   }
 
   .email {
-    font-size: 24px;
+    font-size: 1.666vw;
     line-height: 30px;
   }
 
   .button {
     font-size: 18px;
-    line-height: 24px;
+    line-height: 1.666vw;
     padding: 0 35px;
   }
 
@@ -399,7 +399,7 @@ input:focus {
 
   .email, .button, .error {
     font-size: 14px;
-    line-height: 24px;
+    line-height: 1.666vw;
     letter-spacing: 0.28px;
   }
 
