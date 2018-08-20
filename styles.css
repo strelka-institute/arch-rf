@@ -140,6 +140,13 @@ html, body {
   transform-origin: 50% 1.666vw;
 }
 
+.room-door-blend {
+  background-color: red;
+  mix-blend-mode: lighten;
+}
+
+_:-ms-lang(x), .room-door-blend { display: none; }
+
 .room-door-border {
   border-color: #1e1e1e;
 }
